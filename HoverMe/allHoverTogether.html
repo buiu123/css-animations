@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            background-color: #4d4d4d;
+            gap: 120px;
+            padding: 80px 0;
+        }
+
+        #bordersGrowth {
+            text-decoration: none;
+            color: rgb(219, 141, 14);
+            font-family: sans-serif;
+            font-size: 45px;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 1s;
+            overflow: hidden;
+        }
+
+        #bordersGrowth::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background-color: rgb(219, 141, 14);
+            transition: all 0.5s;
+        }
+
+        #bordersGrowth:hover::before {
+            left: 0;
+        }
+        #bordersGrowth::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 4px;
+            background-color: rgb(219, 141, 14);
+            transition: all 0.5s;
+        }
+        #bordersGrowth:hover::after {
+            right: 0;
+        }
+        #bordersGrowthSpan::before {
+            content: "";
+            position: absolute;
+            top: -100%;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background-color: rgb(219, 141, 14);
+            transition: all 0.5s;
+        }
+        #bordersGrowth:hover #bordersGrowthSpan::before {
+            top: 0;
+        }
+        #bordersGrowthSpan::after {
+            content: "";
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: rgb(219, 141, 14);
+            transition: all 0.5s;
+        }
+        #bordersGrowth:hover #bordersGrowthSpan::after {
+            bottom: 0;
+        }
+
+        /* AMARELO VERDE VERMELHO */
+
+        #amareloVerdeVermelho {
+            text-decoration: none;
+            color: #262626;
+            background-color: yellow;
+            font-family: sans-serif;
+            font-size: 45px;
+            padding: 40px 80px;
+            position: relative;
+        }
+        #amareloVerdeVermelho:before {
+            content: 'BUTTON';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #2ce771;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotateX(270deg);
+            transform-origin: top;
+            transition: all 0.5s;
+        }
+        #amareloVerdeVermelho:hover::before {
+            transform: rotateX(0deg);
+        }
+        #amareloVerdeVermelho:after {
+            content: 'BUTTON';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: crimson;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotateX(270deg);
+            transform-origin: bottom;
+            transition: all 0.5s;
+            transition-delay: 0.25s;
+        }
+        #amareloVerdeVermelho:hover::after {
+            transform: rotateX(0deg);
+        }
+
+        /* YELLOW BUTTON */
+        #yellowBtn {
+            width: 220px;
+            height: 80px;
+            text-decoration: none;
+            color: yellow;
+            font-family: sans-serif;
+            font-size: 26px;
+            text-align: center;
+            line-height: 80px;
+            position: relative;
+            transition: all 0.5s;
+            position: relative;
+        }
+        
+        #yellowBtn::before, #yellowBtn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #ff0;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s;
+            opacity: 0;
+        }
+        #yellowBtn::before {
+            left: 0;
+            box-shadow: -100px 0 0 #ff0;
+            z-index: -1
+        }
+        #yellowBtn::after {
+            right: 0;
+            box-shadow: 100px 0 0 #ff0;
+            z-index: -1
+        }
+
+        #yellowBtn:hover::before {
+            left: 50%;
+            box-shadow: 30px 0 0 #ff0;
+            transform: translateX(-50%) translateY(-50%);
+            opacity: 1;
+        }
+        #yellowBtn:hover::after {
+            right: 50%;
+            box-shadow: -30px 0 0 #ff0;
+            transform: translateX(50%) translateY(-50%);
+            opacity: 1;
+        }
+        #yellowBtnSpan {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ff0;
+            border-radius: 8px;
+            transform: scale(0);
+            transition: all 0.3s;
+            z-index: -1;
+        }
+
+        #yellowBtn:hover #yellowBtnSpan {
+            transform: scale(1);
+            transition-delay: 0.4s;
+        }
+        #yellowBtn:hover {
+            color: #262626;
+            transition-delay: 0.4s ;
+        }
+        /* WAVE BUTTON */
+        #waveBtn {
+            text-decoration: none;
+            color: #00aeff;
+            border: 2px solid #00aeff;
+            font-family: sans-serif;
+            font-size: 45px;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        .wave {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: calc(100% + 22px);
+            background-color: #00aeff;
+            transition: all 1s;
+            z-index: -1;
+        }
+        .wave::before {
+            content: '';
+            position: absolute;
+            top: -22px;
+            left: 0;
+            width: 100%;
+            height: 22px;
+            background: url(wave.png);
+            animation: wavy 0.5s linear infinite;
+        }
+        @keyframes wavy {
+            0% {background-position-x: 0;}
+            100% {background-position-x: 118px;}
+        }
+        #waveBtn:hover .wave {
+            top: 0;
+        }
+        #waveBtn:hover {
+            color: white;
+        }
+
+        /* TRANSTIONS FONTS */
+
+        #transitionFonts {
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+
+            color: #E1332D;
+            border: 3px solid #E1332D;
+            font-size: 40px;
+            font-weight: 100;
+            padding: 40px 80px;
+            letter-spacing: -2px;
+
+            text-transform: uppercase;
+            transition: all 0.5s;
+        }
+        #transitionFonts:hover {
+            font-weight: 900;
+            letter-spacing: 10px;
+            border: 7px solid #E1332D;
+
+        }
+
+        /* TOP LEFT MOVE */
+
+        #topLeftMove {
+            text-decoration: none;
+            color: transparent;
+            background-color: #252525;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid black;
+            padding: 40px 80px;
+            position: relative;
+            overflow: hidden;
+            
+        }
+        #topLeftMove::before {
+            content: 'Passe o Mouse';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: yellow;
+            color: #262626;
+            transition: all 0.5s;
+        }
+        #topLeftMove::after {
+            content: 'Parabens!';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: yellow;
+            color: #262626;
+            transition: all 0.5s;
+            transform: translate(-100%, 100%);
+        }
+        #topLeftMove:hover::before {
+            transform: translate(100%, -100%);
+        }
+        #topLeftMove:hover::after {
+            transform: translate(0%, -0%);
+        }
+        /* SWIPE BLACKBG */
+        #swipeYBlackBG {
+            text-decoration: none;
+            color: wheat;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid wheat;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        #swipeYBlackBG:before {
+            content: 'YEAH!';
+            color: white;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: tomato;
+
+            transform: translateY(-100%);
+            transition: all 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #swipeYBlackBG:hover::before {
+            transform: translateY(0%);
+        }    
+
+        /*  SWIPE LIGHT STROKE */
+        #swipeLightStroke {
+            text-decoration: none;
+            color: wheat;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid wheat;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        #swipeLightStroke:hover {
+            background-color: tomato;
+        }
+        #swipeLightStroke:before {
+            content: '';
+            background-color: white;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 50%;
+            width: 100%;
+            transform: translateX(-100%) rotate(45deg);
+
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #swipeLightStroke:hover::before {
+            transform: translateX(100%) rotate(45deg);
+        }
+
+        /* SWIPE BUTTON USING BORDERS */
+
+        #swipeBtnUsingBorder {
+            text-decoration: none;
+            color: #250e74;
+            font-family: sans-serif;
+            font-size: 24px;
+            border: 4px solid #250e74;
+            width: 250px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            position: relative;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        #swipeBtnUsingBorder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border-top: 38px solid #250e74;
+            border-bottom: 38px solid #250e74;
+            border-right: 38px solid transparent;
+            transition: all 0.5s;
+            z-index: -1;
+            transform: translateX(-100%);
+        }
+        #swipeBtnUsingBorder:hover::before {
+            transform: translateX(0);
+        }
+        #swipeBtnUsingBorder::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border-top: 38px solid #250e74;
+            border-bottom: 38px solid #250e74;
+            border-left: 38px solid transparent;
+            transition: all 0.5s;
+            z-index: -1;
+            transform: translateX(100%);
+        }
+        #swipeBtnUsingBorder:hover::after {
+            transform: translateX(0);
+        }
+        #swipeBtnUsingBorder:hover {
+            color: white;
+        }
+
+        /* swipe */
+        #swipe {
+            text-decoration: none;
+            color: black;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid black;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 1s;
+            overflow: hidden;
+        }
+        #swipe:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #351435;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            transform: translateX(-100%);
+            transition: all 1s;
+
+        }
+        #swipe:hover:before {
+            transform: translateX(0);
+        }
+        #swipe:hover {
+            color: white;
+        }
+
+        /* SPLITED BUTTON */
+
+        #splitedBtn {
+            text-decoration: none;
+            color: rgb(219, 141, 14);
+            border: 3px solid rgb(219, 141, 14);
+            font-family: sans-serif;
+            font-size: 45px;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+
+        #splitedBtn::before,
+        #splitedBtn::after,
+        #splitedBtnSpan::before,
+        #splitedBtnSpan::after{
+            content: '';
+            position: absolute;
+            width: 25%;
+            height: 100%;
+            background-color: rgb(219, 141, 14);
+            z-index: -1;
+            transition: all 0.5s;
+        }
+        #splitedBtn:hover::before {
+            top: 0;
+            left: 0;
+
+        }
+        #splitedBtn::before {
+            top: 0;
+            left: -25%;
+        }
+        #splitedBtn:hover::after {
+            top: 0;
+            left: 25%;
+        }
+        #splitedBtn::after {
+            top: -100%;
+            left: 25%;
+        }
+
+        #splitedBtn #splitedBtnSpan::before {
+            top: 100%;
+            right: 25%;
+        }
+        #splitedBtn:hover #splitedBtnSpan::before {
+            top: 0;
+            right: 25%;
+        }
+        #splitedBtn #splitedBtnSpan::after {
+            top: 0;
+            right: -25%;
+        }
+        #splitedBtn:hover #splitedBtnSpan::after {
+            top: 0;
+            right: 0;
+        }
+
+        #splitedBtn:hover {
+            color: #222;
+
+        }
+
+        /* SHOWING TEXT */
+        #showText {
+            text-decoration: none;
+            color: black;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid black;
+            padding: 40px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        #showText::before {
+            content: 'Hover Me';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #262626;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: scale(5);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        #showText:hover::before {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* ROTATE X E Y */
+        #RotateXY {
+            text-decoration: none;
+            color: black;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid black;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 1s;
+            overflow: hidden;
+        }
+        #RotateXY:hover {
+            color: white;
+        }
+        #RotateXY:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #262626;
+            transition: 1s;
+            z-index: -1;
+            transform: rotateX(90deg);
+        }
+        #RotateXY:hover::before{
+            transform: rotateX(0deg);
+        }
+
+        #RotateXY:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #262626;
+            transition: 1s;
+            z-index: -1;
+            transform: rotateY(90deg);
+        }
+        #RotateXY:hover::after{
+            transform: rotateY(0deg);
+        }
+
+        /* ROTATE */
+
+        #rotateMe {
+            text-decoration: none;
+            color: black;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid black;
+            padding: 40px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        #rotateMe:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: yellow;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            transform-origin: bottom left;
+            transform: rotate(-90deg);
+            transition: transform 0.5s;
+        }
+        #rotateMe:hover:before {
+            transform: rotate(0deg);
+        }
+
+        /* RED BACKGROUND */
+        #redBg {
+            text-decoration: none;
+            color: crimson;
+            font-family: sans-serif;
+            font-size: 45px;
+            border: 5px solid crimson;
+            padding: 40px 80px;
+            position: relative;
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        #redBg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0%;
+            width: 100%;
+            background-color: crimson;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+            border-radius: 0 0 50% 50%;
+            transition: all 0.5s;
+            
+        }
+        #redBg:hover::before {
+            height: 190%;
+        }
+        
+        #redBg:hover {
+            color: white;
+            border-radius: 40px;
+        }
+
+        /* PULSING BUTTON */
+
+        #pulsingButton {
+            position: relative;
+            text-decoration: none;
+            padding: 25px 50px;
+            background-color: white;
+            color: #777;
+            border-radius: 100px;
+            font-size: 24px;
+            transition: all 0.2s;
+            font-weight: bold;
+        }
+        #pulsingButton::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 100px;
+            transition: all 0.4s;
+            z-index: -1;
+        }
+        #pulsingButton:hover::before {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+        #pulsingButton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0, 0.2);
+        }
+        #pulsingButton:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0,0,0, 0.2);
+        }
+
+        /* MOVING ASIDE */
+        #movingAside {
+            text-decoration: none;
+            color: transparent;
+            border: 3px solid yellow;
+            font-family: sans-serif;
+            font-size: 45px;
+            padding: 40px 80px;
+            position: relative;
+        }
+        #movingAside::before {
+            content: 'BUTTON';
+            color: yellow;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #363636;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s;
+        }
+        #movingAside:hover::before {
+            left: 100%;
+            transform: scale(0) rotateY(360deg);
+            opacity: 0;
+        }
+        #movingAside::after {
+            content: 'BUTTON';
+            color: yellow;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #363636;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(-100%) rotateY(360deg) scale(0);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        #movingAside:hover::after {
+            opacity: 1;
+            transform: translateX(0%) rotateY(0deg) scale(1)
+        }
+
+        /* SMOKE EFFECT */
+        ul {
+           display: flex;
+       }
+       ul li {
+           list-style: none;
+           color: white;
+           font-size: 100px;
+           font-weight: bold;
+           letter-spacing: 10px;
+           transition: 2s;
+       }
+
+       ul:hover li {
+           transform: rotate(45deg) translateY(-200px);
+           opacity: 0;
+           filter: blur(20px);
+       }
+
+       li:nth-child(1) {
+            transition-delay: 0;
+       }
+       li:nth-child(2) {
+            transition-delay: 0.4s;
+       }
+       li:nth-child(3) {
+        transition-delay: 0.8s;
+       }
+       li:nth-child(4) {
+        transition-delay: 1.2s;   
+       }
+       li:nth-child(5) {
+        transition-delay: 1.6s;
+       }
+       #shaking {
+           text-decoration: none;
+           color: white;
+           font-family: sans-serif;
+           font-size: 40px;
+           border: 3px solid white;
+           padding: 40px 80px;
+           transition: all 0.3s;
+       }
+       #shaking:hover {
+           border: 3px solid #F44336;
+           color: #F44336;
+           animation: shake 0.3s linear 1;
+       }
+
+       @keyframes shake {
+           33% { transform: rotate(10deg);}
+           66% { transform: rotate(-10deg);}
+           100% { transform: rotate(10deg);}
+       }
+
+       /* text hover */
+
+       h1 {
+           color: #CCC;
+           font-family: Verdana, Geneva, Tahoma, sans-serif;
+           font-size: 120px;
+           position: relative;
+       }
+       h1::before {
+           content: "TEXTO";
+           position: absolute;
+           top: 0;
+           left: 0;
+           color: #262626;
+           width: 0%;
+           overflow: hidden;
+           transition: all 0.5s;
+       }
+       h1:hover::before {
+           width: 100%;
+       }
+
+       /* ANIMATED BUTTON */
+       #animatedBtn {
+           text-decoration: none;
+           color: white;
+           font-family: sans-serif;
+           font-size: 40px;
+           border: 3px solid white;
+           padding: 40px 80px;
+           transition: all 0.3s;
+           position: relative;
+           overflow: hidden;
+       }
+       #animatedBtn::before {
+           content: "";
+           background-color: #F44336;
+           top: 0;
+           left: 0;
+           width: 120px;
+           height: 100%;
+           position: absolute;
+           z-index: -1;
+           transform: skew(-15deg);
+           animation: moving 1s linear infinite;
+           transition: all 0.5s;
+       }
+       @keyframes moving {
+           from { left: -120px;}
+           to { left: 100%;}
+       }
+       #animatedBtn:hover::before {
+           width: 100%;
+           transform: skew(0deg);
+           animation: none;
+       } 
+
+       
+
+    </style>
+    <title>HTML Padrão</title>
+</head>
+<body>
+    
+    <a href="#" id="bordersGrowth">
+        BUTTON
+        <span id="bordersGrowthSpan"></span>
+    </a>
+
+
+    <!-- AMARELO VERDE VERMELHO -->
+
+    <a href="#" id="amareloVerdeVermelho">BUTTON</a>
+
+    <!-- YELLOW BUTTON -->
+
+    <a href="#" id="yellowBtn">
+        <span id="yellowBtnSpan"></span>
+        Hover Me
+    </a>
+
+    <!-- WAVE BUTTON -->
+
+    <a href="#" id="waveBtn">
+        BUTTON
+        <div class="wave"></div>
+    </a>
+
+    <!-- TRANSITION FONTS -->
+
+    <a href="#" id="transitionFonts">Botão</a>
+
+    <!-- TOP LEFT MOVE -->
+    <a href="#" id="topLeftMove">Hover Me</a>
+
+    <!-- SWIPE BLACK BG -->
+    <a href="#" id="swipeYBlackBG">Hover Me</a>
+
+    <!-- SWIPE LIGHT STROKE -->
+    <a href="#" id="swipeLightStroke">Hover Me</a>
+
+    <!-- SWIPE BUTTON USING BORDERS -->
+    <a href="#" id="swipeBtnUsingBorder">BUTTON</a>
+
+    <!-- swipe -->
+    <a href="#" id="swipe">Hover Me</a>
+
+    <!-- splited button -->
+    <a href="#" id="splitedBtn">
+        <span id="splitedBtnSpan">
+            BUTTON
+        </span>
+    </a>
+
+    <!-- SHOWING TEXT -->
+    <a href="#" id="showText">Hover Me</a>
+
+    <!-- ROTATE XY -->
+    <a href="#" id="RotateXY">Hover Me</a>
+
+    <!-- ROTATE -->
+    <a href="#" id="rotateMe">Hover Me</a>
+
+    <!-- RED BACKGROUND -->
+    <a href="#" id="redBg">Hover Me</a>
+
+    <!-- PULSING BUTTON -->
+    <a href="#" id="pulsingButton">
+        HOVER ME
+    </a>
+
+    <!-- MOVING ASIGE -->
+    <a href="#" id="movingAside">BUTTON</a>
+
+    <!-- SMOKE EFFECT -->
+        <ul>
+            <li>F</li>
+            <li>U</li>
+            <li>M</li>
+            <li>O</li>
+            <li>S</li>
+        </ul>
+
+        <!-- shaking -->
+        <a href="#" id="shaking">HOVER ME</a>
+
+        <!-- text hover -->
+        <h1>TEXTO</h1>
+
+        <!-- ANIMATED BUTTON -->
+        <a href="#" id="animatedBtn">HOVER ME</a>
+    
+
+
+    <script type="text/javascript">
+        
+    </script>
+</body>
+</html>
